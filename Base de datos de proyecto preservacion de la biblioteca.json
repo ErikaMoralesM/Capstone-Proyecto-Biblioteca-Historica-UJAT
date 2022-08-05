@@ -1,0 +1,612 @@
+[
+    {
+        "id": "ca73e1e04260209b",
+        "type": "tab",
+        "label": "Base de datos Proyecto capstoe",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f19b8fbd6c82e110",
+        "type": "inject",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "CREATE TABLE q (Humedad INT NOT NULL,Temperatura INT NOT NULL,Humo INT NOT NULL,Movimiento INT NOT NULL,Fecha INT NOT NULL, Hora INT NOT NULL)",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "12d8876621db1cab"
+            ]
+        ]
+    },
+    {
+        "id": "12d8876621db1cab",
+        "type": "sqlite",
+        "z": "ca73e1e04260209b",
+        "mydb": "2ee94bece1f11a86",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "prueba1",
+        "x": 340,
+        "y": 100,
+        "wires": [
+            [
+                "19a17a123bd672f2"
+            ]
+        ]
+    },
+    {
+        "id": "19a17a123bd672f2",
+        "type": "debug",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "a7f6fa9c8dd1a369",
+        "type": "function",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "func": "\nvar v1 = msg.Temperatura;\nvar v2 = msg.Humedad ;\nvar v3 = msg.Humo;\nvar v4 = msg.movimiento;\nvar v5 = msg.fecha;\nvar v6 = msg.Hora;\n\nmsg.topic = \"INSERT INTO q (Humedad,Temperatura,Humo,Movimiento,Fecha,Hora) values('\"+v2+\"','\"+v1+\"','\"+v3+\"','\"+v4+\"','\"+v5+\"','\"+v6+\"')\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 220,
+        "wires": [
+            [
+                "a5a8cdb1e7032092"
+            ]
+        ]
+    },
+    {
+        "id": "a5a8cdb1e7032092",
+        "type": "sqlite",
+        "z": "ca73e1e04260209b",
+        "mydb": "2ee94bece1f11a86",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 760,
+        "y": 240,
+        "wires": [
+            [
+                "3a462cf5cf8ee94d"
+            ]
+        ]
+    },
+    {
+        "id": "3a462cf5cf8ee94d",
+        "type": "debug",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "1b2838331533c04d",
+        "type": "inject",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "SELECT * FROM q",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 720,
+        "wires": [
+            [
+                "b2c0f69d869682ac"
+            ]
+        ]
+    },
+    {
+        "id": "b2c0f69d869682ac",
+        "type": "sqlite",
+        "z": "ca73e1e04260209b",
+        "mydb": "2ee94bece1f11a86",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 400,
+        "y": 720,
+        "wires": [
+            [
+                "4afd2d3b7b5428e5"
+            ]
+        ]
+    },
+    {
+        "id": "1963d42bb7821bed",
+        "type": "debug",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "84dff030bbfcbc62",
+        "type": "join",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "6",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 450,
+        "y": 260,
+        "wires": [
+            [
+                "a7f6fa9c8dd1a369"
+            ]
+        ]
+    },
+    {
+        "id": "488b5bb4bf93fbbe",
+        "type": "function",
+        "z": "ca73e1e04260209b",
+        "name": "timeConvert",
+        "func": "if ( !msg.timestamp ) msg.timestamp = Math.round(+new Date());\n\nvar dt = new Date(msg.timestamp);\n    var month =\tdt.getMonth() +1 ;\n\tvar day =\t\tdt.getDate();\n\tvar year =\t\tdt.getFullYear();\n\tresult=(month) + \"-\" + (day) +\"-\"+(year);\nmsg.fecha=result;\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "84dff030bbfcbc62"
+            ]
+        ]
+    },
+    {
+        "id": "14950df57e7a952d",
+        "type": "inject",
+        "z": "ca73e1e04260209b",
+        "name": "Fecha",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "fecha",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "488b5bb4bf93fbbe"
+            ]
+        ]
+    },
+    {
+        "id": "090499c313194e11",
+        "type": "inject",
+        "z": "ca73e1e04260209b",
+        "name": "Hora",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "Hora",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 240,
+        "wires": [
+            [
+                "9095b53db1ad2274"
+            ]
+        ]
+    },
+    {
+        "id": "9095b53db1ad2274",
+        "type": "function",
+        "z": "ca73e1e04260209b",
+        "name": "timeConvert",
+        "func": "if ( !msg.timestamp ) msg.timestamp = Math.round(+new Date());\n\nvar dt = new Date(msg.timestamp);\nvar hora =\tdt.getHours();\nvar minuto = dt.getMinutes();\nvar segundo =\tdt.getSeconds();\nresult = (hora) + \":\" + (minuto) +\":\"+(segundo);\n\t\nmsg.Hora = result;\n\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 286,
+        "y": 240,
+        "wires": [
+            [
+                "84dff030bbfcbc62"
+            ]
+        ]
+    },
+    {
+        "id": "4afd2d3b7b5428e5",
+        "type": "ui_template",
+        "z": "ca73e1e04260209b",
+        "group": "d40ead3e.334ab",
+        "name": "",
+        "order": 0,
+        "width": "8",
+        "height": "14",
+        "format": "<table style=\"width:100%\">\n  <tr>\n   <th>Index</th>\n   <th>Humedad</th>\n   <th>Temperatura</th>\n    <th>Humo</th>\n    <th>Movimiento</th>\n    <th>fecha</th>\n    <th>Hora</th>\n    \n    \n  </tr>\n  <tr ng-repeat=\"x in msg.payload | limitTo:50000\">\n    <td>{{$index}}</td>\n    <td>{{msg.payload[$index].Humedad}}</td>\n    <td>{{msg.payload[$index].Temperatura}}</td>\n    <td>{{msg.payload[$index].Humo}}</td>\n    <td>{{msg.payload[$index].Movimiento}}</td>\n    <td>{{msg.payload[$index].Fecha}}</td>\n    <td>{{msg.payload[$index].Hora}}</td>\n  </tr>\n</table>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 540,
+        "y": 720,
+        "wires": [
+            [
+                "1963d42bb7821bed"
+            ]
+        ]
+    },
+    {
+        "id": "c583dbb77b3dd6fe",
+        "type": "function",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "func": "msg.payload = parseFloat(msg.payload);\n\nresult= msg.payload;\n\nmsg.Humedad = result;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 266,
+        "y": 320,
+        "wires": [
+            [
+                "84dff030bbfcbc62"
+            ]
+        ]
+    },
+    {
+        "id": "5a1e10cde1499a66",
+        "type": "function",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "func": "msg.payload = parseFloat(msg.payload);\n\nresult= msg.payload;\n\nmsg.Temperatura = result;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 286,
+        "y": 380,
+        "wires": [
+            [
+                "84dff030bbfcbc62"
+            ]
+        ]
+    },
+    {
+        "id": "eb65b1a486963847",
+        "type": "function",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "func": "msg.payload = parseFloat(msg.payload);\n\nresult= msg.payload;\n\nmsg.Humo = result;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 276,
+        "y": 440,
+        "wires": [
+            [
+                "84dff030bbfcbc62"
+            ]
+        ]
+    },
+    {
+        "id": "cec925f692548f0f",
+        "type": "function",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "func": "msg.payload = parseFloat(msg.payload);\n\nresult= msg.payload;\n\nmsg.movimiento = result;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 276,
+        "y": 500,
+        "wires": [
+            [
+                "84dff030bbfcbc62"
+            ]
+        ]
+    },
+    {
+        "id": "f1dafcdfcf46b26b",
+        "type": "mqtt in",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "topic": "Humedad",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84b1057959605503",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 320,
+        "wires": [
+            [
+                "c583dbb77b3dd6fe"
+            ]
+        ]
+    },
+    {
+        "id": "041799d77b24a375",
+        "type": "mqtt in",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "topic": "Temperatura",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84b1057959605503",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 380,
+        "wires": [
+            [
+                "5a1e10cde1499a66"
+            ]
+        ]
+    },
+    {
+        "id": "2aa22abea10b51f6",
+        "type": "mqtt in",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "topic": "Humo",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84b1057959605503",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 440,
+        "wires": [
+            [
+                "eb65b1a486963847"
+            ]
+        ]
+    },
+    {
+        "id": "ea304395bae0becf",
+        "type": "mqtt in",
+        "z": "ca73e1e04260209b",
+        "name": "",
+        "topic": "movimiento",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84b1057959605503",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 500,
+        "wires": [
+            [
+                "cec925f692548f0f"
+            ]
+        ]
+    },
+    {
+        "id": "bdf1bdfc7e189509",
+        "type": "ui_spacer",
+        "z": "ca73e1e04260209b",
+        "name": "spacer",
+        "group": "fcd923da8fafabf6",
+        "order": 5,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "bfeacc9a57cc6b62",
+        "type": "ui_spacer",
+        "z": "ca73e1e04260209b",
+        "name": "spacer",
+        "group": "fcd923da8fafabf6",
+        "order": 6,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "bdd6d47194e15e47",
+        "type": "ui_spacer",
+        "z": "ca73e1e04260209b",
+        "name": "spacer",
+        "group": "fcd923da8fafabf6",
+        "order": 7,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "4abb4729855f3fee",
+        "type": "ui_spacer",
+        "z": "ca73e1e04260209b",
+        "name": "spacer",
+        "group": "fcd923da8fafabf6",
+        "order": 8,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "19bf0044382575d3",
+        "type": "ui_spacer",
+        "z": "ca73e1e04260209b",
+        "name": "spacer",
+        "group": "fcd923da8fafabf6",
+        "order": 9,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "2ee94bece1f11a86",
+        "type": "sqlitedb",
+        "db": "datbase",
+        "mode": "RWC"
+    },
+    {
+        "id": "d40ead3e.334ab",
+        "type": "ui_group",
+        "name": "Base de datos",
+        "tab": "3c770aff.9ba2a6",
+        "order": 1,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "84b1057959605503",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "fcd923da8fafabf6",
+        "type": "ui_group",
+        "name": "Biblioteca",
+        "tab": "86b45026596b7f7a",
+        "order": 1,
+        "disp": true,
+        "width": "15",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "3c770aff.9ba2a6",
+        "type": "ui_tab",
+        "name": "Base de datos proyecto capstone",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "86b45026596b7f7a",
+        "type": "ui_tab",
+        "name": " Biblioteca Histórica José Martí de la Universidad Juárez Autónoma de Tabasco (UJAT)",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]

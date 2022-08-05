@@ -1,0 +1,362 @@
+[
+    {
+        "id": "36fbadc30937d083",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c11767c6ae9c49a9",
+        "type": "mqtt in",
+        "z": "36fbadc30937d083",
+        "name": "",
+        "topic": "Humedad",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84b1057959605503",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 180,
+        "wires": [
+            [
+                "596a26721c4c915a"
+            ]
+        ]
+    },
+    {
+        "id": "cfbd19664e5107b3",
+        "type": "mqtt in",
+        "z": "36fbadc30937d083",
+        "name": "",
+        "topic": "Temperatura",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84b1057959605503",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 280,
+        "wires": [
+            [
+                "4a16575f137fd373"
+            ]
+        ]
+    },
+    {
+        "id": "d1a1ce9f658d2ca3",
+        "type": "mqtt in",
+        "z": "36fbadc30937d083",
+        "name": "",
+        "topic": "Humo",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84b1057959605503",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 380,
+        "wires": [
+            [
+                "88fe265fb401a149"
+            ]
+        ]
+    },
+    {
+        "id": "956e5fc02de61034",
+        "type": "mqtt in",
+        "z": "36fbadc30937d083",
+        "name": "",
+        "topic": "movimiento",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84b1057959605503",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 460,
+        "wires": [
+            [
+                "0638ea894153e5f5"
+            ]
+        ]
+    },
+    {
+        "id": "4a16575f137fd373",
+        "type": "function",
+        "z": "36fbadc30937d083",
+        "name": "",
+        "func": "msg.payload = parseFloat(msg.payload);\n\nresult= msg.payload;\n\nmsg.Temperatura = result;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 240,
+        "wires": [
+            [
+                "6ef08558ba801de1"
+            ]
+        ]
+    },
+    {
+        "id": "596a26721c4c915a",
+        "type": "function",
+        "z": "36fbadc30937d083",
+        "name": "",
+        "func": "msg.payload = parseFloat(msg.payload);\n\nresult= msg.payload;\n\nmsg.Humedad = result;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 140,
+        "wires": [
+            [
+                "6a43b850bfdb552d"
+            ]
+        ]
+    },
+    {
+        "id": "6ef08558ba801de1",
+        "type": "ui_gauge",
+        "z": "36fbadc30937d083",
+        "name": "",
+        "group": "fcd923da8fafabf6",
+        "order": 1,
+        "width": 5,
+        "height": 5,
+        "gtype": "wave",
+        "title": "Temperatura",
+        "label": " °C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 550,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "e49e0f2106a307db",
+        "type": "ui_gauge",
+        "z": "36fbadc30937d083",
+        "name": "",
+        "group": "fcd923da8fafabf6",
+        "order": 2,
+        "width": 5,
+        "height": 5,
+        "gtype": "compass",
+        "title": "Humo",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 510,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "36f843394ed2a63b",
+        "type": "ui_gauge",
+        "z": "36fbadc30937d083",
+        "name": "",
+        "group": "fcd923da8fafabf6",
+        "order": 3,
+        "width": 5,
+        "height": 5,
+        "gtype": "compass",
+        "title": "Presencia",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 520,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "2b9ae610650d6737",
+        "type": "function",
+        "z": "36fbadc30937d083",
+        "name": " condicionante para envio de mqtt alerta",
+        "func": "\n\nvar v1 = msg.Humo;\n\n\n\n\n\nif (v1 > 1) {\n  msg.payload = \"1\";\n} else if (v1 == 0) {\n  msg.payload = \"0\";\n} \n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 320,
+        "wires": [
+            [
+                "4b4acd22413e1dfc"
+            ]
+        ]
+    },
+    {
+        "id": "4b4acd22413e1dfc",
+        "type": "mqtt out",
+        "z": "36fbadc30937d083",
+        "name": "",
+        "topic": "alertas",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "84b1057959605503",
+        "x": 870,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "6a43b850bfdb552d",
+        "type": "ui_gauge",
+        "z": "36fbadc30937d083",
+        "name": "",
+        "group": "fcd923da8fafabf6",
+        "order": 4,
+        "width": 5,
+        "height": 5,
+        "gtype": "wave",
+        "title": "Nivel de humedad",
+        "label": "% HR",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 550,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "88fe265fb401a149",
+        "type": "function",
+        "z": "36fbadc30937d083",
+        "name": "",
+        "func": "msg.payload = parseFloat(msg.payload);\n\nresult= msg.payload;\n\nmsg.Humo = result;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 340,
+        "wires": [
+            [
+                "2b9ae610650d6737",
+                "e49e0f2106a307db"
+            ]
+        ]
+    },
+    {
+        "id": "0638ea894153e5f5",
+        "type": "function",
+        "z": "36fbadc30937d083",
+        "name": "",
+        "func": "msg.payload = parseFloat(msg.payload);\n\nresult= msg.payload;\n\nmsg.movimiento = result;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 460,
+        "wires": [
+            [
+                "36f843394ed2a63b"
+            ]
+        ]
+    },
+    {
+        "id": "84b1057959605503",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "fcd923da8fafabf6",
+        "type": "ui_group",
+        "name": "Biblioteca",
+        "tab": "86b45026596b7f7a",
+        "order": 1,
+        "disp": true,
+        "width": "15",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "86b45026596b7f7a",
+        "type": "ui_tab",
+        "name": " Biblioteca Histórica José Martí de la Universidad Juárez Autónoma de Tabasco (UJAT)",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
