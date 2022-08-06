@@ -1,6 +1,6 @@
 /*
  * Equipo: 32
- * Participantes: Erika Yunue Morales Mateo
+ * Participantes: Erika Yunuen Morales Mateos
  * Programacion del nodo sensor Biblioteca 
  * Por: Equipo 
  * Integrates: 
@@ -17,18 +17,18 @@
 #include "DHT.h"        // Libreria del sensor de temperatura y humedad
 #include <MQ2.h> // Libreria del sensor de mq2 para gas y humo
 
-// *********************** Espesificaciones de la red a conectar el nodo *************************
+// *********************** Especificaciones de la red a conectar el nodo *************************
 
 const char* ssid = "INFINITUMB5A3_2.4";// Pon aquí el nombre de la red a la que deseas conectarte INFINITUMB5A3_2.4
 const char* password = "EBsH6qd96W"; //Escribe la contraseña de dicha red EBsH6qd96W
 const char* mqtt_server = "192.168.1.132";//Escribe la direccion ip del broker mqtt
 
 //**************** dht11***************************
-#define DHTTYPE DHT11   //Definimos espesificamente que sensor DHT usamos en este caso es el DHT11
+#define DHTTYPE DHT11   //Definimos especificamente que sensor DHT usamos en este caso es el DHT11 Sensor Humedad
 
 #define dht_dpin D6 // Define el pin a cual llegaran los datos del sensor dht11
 DHT dht(dht_dpin, DHTTYPE); 
-//*****************mq2****************************
+//*****************mq2**************************** Sensor Humo
 
 
 int pinAout = A0; // Definimos el Pin A0 del micro para conectar pin Analogico del sensor de gas
@@ -37,7 +37,7 @@ MQ2 mq2(pinAout); //Declaramos la variable de mq2
 int S=0;//Declaramos una variable que usaremos para armar el mensaje mqtt
 
 //********************Pir****************************
-int pir = D7; // Declaramos el pin de entrada para del microcontrolador para coectar el pin de datos den sensor de movimiento
+int pir = D7; // Declaramos el pin de entrada para del microcontrolador para conectar el pin de datos den sensor de movimiento
 
 //**********************Alerta************************
 
@@ -88,7 +88,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     Serial.print((char)payload[i]);
   }
 
-// establecemos las acciones a realizar del topico alerta
+// Establecemos las acciones a realizar del topico alerta
  if ((char)payload[0] == '0') // declaramos en 0 e estado del topico  
     digitalWrite(alerta, LOW);   // en caso de recibir un 0 la alerta no se activa
    else {
@@ -197,7 +197,7 @@ void loop() {
    
    delay(1000);
 
-   // establecemos el mensaje a transmitir por mqtt de los datos del sensor mq2
+   // Establecemos el mensaje a transmitir por mqtt de los datos del sensor mq2
    S;
    String Smes = String(S);
    Smes.toCharArray(msg,50);
@@ -207,7 +207,7 @@ void loop() {
    //**************************PIR*********************************
    int v = digitalRead(pir);// declaramos una variable para incorporarlo en el mensaje mqtt
   
-// en la siguiente condicionante establecemo si hay movimiento o no segun los datos del sensor  
+// En la siguiente condicionante establecemo si hay movimiento o no segun los datos del sensor  
   if (v == HIGH) {
     Serial.println(1);
     }
@@ -217,7 +217,7 @@ void loop() {
     
 delay(100);
 
-// establecemos el mensaje a transmitir por mqtt de los datos del sensor pir (movimiento)
+// Establecemos el mensaje a transmitir por mqtt de los datos del sensor pir (movimiento)
  v;
    String vmes = String(v);
    vmes.toCharArray(msg,50);
